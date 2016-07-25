@@ -2,7 +2,7 @@
 //  ForecastClient.swift
 //  Stormy
 //
-//  Created by Kevin VanEvery on 7/24/16.
+//  Created by Pasan Premaratne on 4/13/16.
 //  Copyright © 2016 Treehouse. All rights reserved.
 //
 
@@ -66,6 +66,24 @@ final class ForecastAPIClient: APIClient {
             }, completion: completion)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

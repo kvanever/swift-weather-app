@@ -34,17 +34,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    lazy var forecastAPIClient = ForecastAPIClient(APIKey: "f4c3488a42b1ab0a039041f28cc5bf87")
+    lazy var forecastAPIClient = ForecastAPIClient(APIKey: "e7d8d21f3e7c1c515d68fba89aa058ba")
     let coordinate = Coordinate(latitude: 37.8267, longitude: -122.423)
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         fetchCurrentWeather()
         
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,6 +52,8 @@ class ViewController: UIViewController {
     
     func fetchCurrentWeather() {
         forecastAPIClient.fetchCurrentWeather(coordinate) { result in
+            self.toggleRefreshAnimation(false)
+            
             switch result {
             case .Success(let currentWeather):
                 self.display(currentWeather)
@@ -60,9 +62,9 @@ class ViewController: UIViewController {
             default: break
             }
         }
-        
+
     }
-    
+
     func display(weather: CurrentWeather) {
         currentTemperatureLabel.text = weather.temperatureString
         currentPrecipitationLabel.text = weather.precipitationProbabilityString
@@ -77,6 +79,21 @@ class ViewController: UIViewController {
         alertController.addAction(dismissAction)
         
         presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func refreshWeather(sender: AnyObject) {
+        toggleRefreshAnimation(true)
+        fetchCurrentWeather()
+    }
+    
+    func toggleRefreshAnimation(on: Bool) {
+        refreshButton.hidden = on
+        
+        if on {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
     
 }

@@ -1,16 +1,16 @@
 //
 //  APIClient.swift
+//  Stormy
 //
-//  Created by Kevin VanEvery on 7/24/16.
-//  Copyright © 2016. All rights reserved.
+//  Created by Pasan Premaratne on 4/12/16.
+//  Copyright © 2016 Treehouse. All rights reserved.
 //
 
 import Foundation
 
-public let KVENetworkingErrorDomain = "com.kevinvanevery.ApplicationName.NetworkingError"
+public let TRENetworkingErrorDomain = "com.treehouse.Stormy.NetworkingError"
 public let MissingHTTPResponseError: Int = 10
 public let UnexpectedResponseError: Int = 20
-public let NoErrorResponse: Int = 30
 
 typealias JSON = [String : AnyObject]
 typealias JSONTaskCompletion = (JSON?, NSHTTPURLResponse?, NSError?) -> Void
@@ -49,7 +49,7 @@ extension APIClient {
                     NSLocalizedDescriptionKey: NSLocalizedString("Missing HTTP Response", comment: "")
                 ]
                 
-                let error = NSError(domain: KVENetworkingErrorDomain, code: MissingHTTPResponseError, userInfo: userInfo)
+                let error = NSError(domain: TRENetworkingErrorDomain, code: MissingHTTPResponseError, userInfo: userInfo)
                 completion(nil, nil, error)
                 return
             }
@@ -84,8 +84,7 @@ extension APIClient {
                     if let error = error {
                         completion(.Failure(error))
                     } else {
-                        let error = NSError(domain: KVENetworkingErrorDomain, code: NoErrorResponse, userInfo: nil)
-                        completion(.Failure(error))
+                        // TODO: Implement Error Handling
                     }
                     return
                 }
@@ -93,7 +92,7 @@ extension APIClient {
                 if let value = parse(json) {
                     completion(.Success(value))
                 } else {
-                    let error = NSError(domain: KVENetworkingErrorDomain, code: UnexpectedResponseError, userInfo: nil)
+                    let error = NSError(domain: TRENetworkingErrorDomain, code: UnexpectedResponseError, userInfo: nil)
                     completion(.Failure(error))
                 }
             }
@@ -102,5 +101,19 @@ extension APIClient {
         task.resume()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
